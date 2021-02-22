@@ -7,11 +7,9 @@ import java.io.IOException;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 import org.hjson.JsonValue;
 
 /*
@@ -34,32 +32,32 @@ along with wsrpc.  If not, see <http://www.gnu.org/licenses/>.
 /**
  * The plugin class
  */
-@Mojo(name = "validate")
-@Execute(phase = LifecyclePhase.GENERATE_SOURCES)
+@Mojo( name = "validate", defaultPhase = LifecyclePhase.TEST, threadSafe = true )
 public class HjsonMojo extends AbstractMojo {
 
-	@Parameter(defaultValue = "${project.basedir}/src/main/resources/wsrpc", property = "inputDir", required = true)
+	@Parameter(defaultValue = "${project.basedir}/src/main/resources/hjson", property = "inputDir", required = true)
 	private File inputDir;
 
+	/*
 	@Parameter(defaultValue = "${project}")
 	private MavenProject project;
+	 */
 
 	/**
 	 * Execute the plugin
 	 * @throws MojoExecutionException any errors
 	 */
-	@Override
-	@SuppressWarnings("unchecked")
 	public void execute() throws MojoExecutionException {
 
 		// process each specification file
 		if (inputDir == null) throw new MojoExecutionException("Cannot find inputDir");
-		if (!inputDir.exists()) throw new MojoExecutionException("inputDir does not exist");
+		if (!inputDir.exists()) throw new MojoExecutionException("inputDir " + inputDir.getAbsolutePath() + " does not exist");
 
 		getLog().info("inputDir = " + inputDir.getAbsolutePath());
 
 		for (File dirFile : inputDir.listFiles()) {
-			if (!dirFile.getAbsolutePath().endsWith(".hson")) continue;
+			getLog().debug("Look at file "+dirFile.getAbsolutePath());
+			if (!dirFile.getAbsolutePath().endsWith(".hjson")) continue;
 
 			// read the specification file
 			BufferedReader reader = null;
@@ -76,8 +74,10 @@ public class HjsonMojo extends AbstractMojo {
 
 			// verify we can parse
 			try {
+				getLog().debug("Validating file " + dirFile.getAbsolutePath());
 				JsonValue.readHjson(hjsonSource);
 			} catch (Exception e) {
+				getLog().warn("Error validating " + dirFile.getAbsolutePath(), e);
 				throw new MojoExecutionException("Cannot parse hjson file " + dirFile.getAbsolutePath(), e);
 			}
 		}
