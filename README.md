@@ -1,10 +1,7 @@
 # hjson-maven-plugin
-hjson Maven Plugin to Generate Code
+hjson Maven Plugin
 
-This maven plugin will generated the needed source files as determined by a WebSocket RPC (hjson) specification file.
-The specification file is a JSON file that defines the hjson interface that is to be generated. 
-
-For more documentation on hjson, see the [main project](https://github.com/kc7bfi/hjson-core).
+This maven plugin can be used to validate hjson files. 
 
 ## Usage
 To use this plugin, add it to your maven project descriptor pom.xml.
@@ -20,12 +17,11 @@ The following example shows how to generate a interfaces defined in the "hjson" 
 	</configuration>
 	<executions>
 		<execution>
-			<phase>generate-sources</phase>
 			<goals>
-				<goal>generate</goal>
+				<goal>validate</goal>
 			</goals>
 		</execution>
 	</executions>
 </plugin>
 ```
-All files ending in `.json` will be processed.
+All files ending in `.hjson` will be processed.

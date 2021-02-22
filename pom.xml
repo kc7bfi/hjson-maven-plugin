@@ -1,14 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.psgglobal.hjson</groupId>
 	<artifactId>hjson-maven-plugin</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 
-	<name>WebSocket RPC Maven Plugin</name>
-	<description>This is the maven plugin to generate files for the WebSocket (hjson) project.</description>
+	<name>hjson Maven Plugin</name>
+	<description>This is the maven plugin to validate hjson files.</description>
 	<url>https://github.com/kc7bfi/hjson-maven-plugin</url>
 
 	<licenses>
@@ -41,9 +42,7 @@
 		<maven.annotations.version>3.5</maven.annotations.version>
 		<maven.project.version>3.0-alpha-2</maven.project.version>
 		<plexus.version>3.0.24</plexus.version>
-		<quick.json.version>1.0.4</quick.json.version>
-		<velocity.version>1.7</velocity.version>
-		<velocity.tools.version>2.0</velocity.tools.version>
+		<hjson.java.version>3.0.0</hjson.java.version>
 	</properties>
 
 	<distributionManagement>
@@ -69,21 +68,6 @@
 			<version>${plexus.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.codesnippets4all</groupId>
-			<artifactId>quick-json</artifactId>
-			<version>${quick.json.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>
-			<version>${velocity.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity-tools</artifactId>
-			<version>${velocity.tools.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-project</artifactId>
 			<version>${maven.project.version}</version>
@@ -99,6 +83,11 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hjson</groupId>
+			<artifactId>hjson</artifactId>
+			<version>${hjson.java.version}</version>
 		</dependency>
 	</dependencies>
 
